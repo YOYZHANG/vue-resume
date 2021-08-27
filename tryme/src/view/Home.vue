@@ -1,5 +1,4 @@
 <template>
-  <Header/>
   <AddTodo @addNew="addNew"/>
   <ul>
     <TodoItem v-for="(item, index) in todo" :key="index" :item="item" @remove="todo.splice(index, 1)"/>
@@ -7,7 +6,6 @@
 </template>
 
 <script>
-import Header from '../components/Header.vue';
 import TodoItem from '../components/TodoItem.vue';
 import AddTodo from '../components/AddTodo.vue';
 
@@ -16,7 +14,7 @@ export default {
     return {
       todo: [{
         content: 'fsdfdsfd',
-        completed: false
+        completed: true
       }, {
         content: 'dfsfgg',
         completed: false
@@ -27,7 +25,6 @@ export default {
     }
   },
   components: {
-    Header,
     TodoItem,
     AddTodo
   },

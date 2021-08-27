@@ -1,24 +1,8 @@
-import App from './view/App';
-// import About from './view/About';
-// import {create} from 'vue-router';
 import { createApp } from 'vue';
+import router from './router';
+import App from './App';
 
-// const routes = [
-//     {
-//         path: '/',
-//         component: App
-//     },
-//     {
-//         path: '/about',
-//         component: About
-//     }
-// ]
+const app = createApp(App);
 
-const app = createApp(App)
-
-// const router = create({
-//     routes
-// });
-
-// app.use(router);
+app.use(router);
 app.mount('#app');
