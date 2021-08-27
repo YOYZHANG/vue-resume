@@ -1,13 +1,15 @@
 <template>
-  <AddTodo @addNew="addNew"/>
-  <ul>
-    <TodoItem v-for="(item, index) in todo" :key="index" :item="item" @remove="todo.splice(index, 1)"/>
-  </ul>
+  <div>
+    <router-link to='/add'>+</router-link>
+    <ul>
+      <TodoItem v-for="(item, index) in todo" :key="index" :item="item" @remove="todo.splice(index, 1)"/>
+    </ul>
+  </div>
 </template>
 
 <script>
 import TodoItem from '../components/TodoItem.vue';
-import AddTodo from '../components/AddTodo.vue';
+// import AddTodo from '../components/AddTodo.vue';
 
 export default {
   data() {
@@ -25,8 +27,7 @@ export default {
     }
   },
   components: {
-    TodoItem,
-    AddTodo
+    TodoItem
   },
   methods: {
     addNew(item) {

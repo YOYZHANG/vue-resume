@@ -1,4 +1,5 @@
-import Home from './view/Home.vue';
+import Home from './view/Home';
+import Form from './view/Form'
 import  { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -9,6 +10,10 @@ const routes = [
     {
         path: '/about',
         component: () => import('./view/About')
+    },
+    {
+        path: '/add',
+        component: Form
     }
 ];
 
