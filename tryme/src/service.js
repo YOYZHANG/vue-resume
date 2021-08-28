@@ -1,7 +1,26 @@
 import data from './data';
 // 为什么数据都要immutable呢？？
 export default {
-    todos() {},
+    todos(category) {
+        let categoryMap = {};
+        for (let cate of data.category) {
+            categoryMap[cate.id] = cate;
+        }
+        let todos = data.list;
+        let result = [];
+        for (let todo of todos) {
+           if (!category || +todo.categoryId === +category) {
+               todo = Object.assign({}, todo);
+               result.push(todo);
+
+               if (category) {
+                    todo.category = Object.assign({}, categoryMap[category]);
+               }
+           }
+        }
+
+        return result;
+    },
     todo(id) {
         let categoryMap = {};
         for (let cate of data.category) {
@@ -36,7 +55,15 @@ export default {
         data.list.unshift(todo);
     },
     removeTodo() {},
-    editTodo() {},
+    editTodo(todo) {
+        todo = Object.assign({}, todo);
+        for (const [index, item] of data.list.entries()) {
+            if (item.id === todo.id) {
+                data.list[index] = item;
+                break;
+            }
+        }
+    },
 
     addCategory() {},
     removeCategory() {},

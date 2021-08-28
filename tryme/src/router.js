@@ -13,7 +13,14 @@ const routes = [
     },
     {
         path: '/add',
-        component: Form
+        component: Form,
+        props: true
+    },
+    {
+        path: '/category/:cateId',
+        component: Home,
+        name: 'category',
+        props: true
     }
 ];
 

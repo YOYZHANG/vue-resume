@@ -2,10 +2,11 @@
     <ul class="ui-picker">
         <li 
             v-for="item in datasource" 
-            :key="item">{{item.value}}
+            :key="item"
             @click="itemClick(item.id)"
             :style="{'background': item.color}"
-            :class="{'selected:': item.id == value}"
+            :class="{'selected:': item.id == value}">
+            {{item.title}}
         </li>
     </ul>
 </template>
@@ -20,14 +21,18 @@ export default {
     methods: {
         itemClick(id) {
             this.value = id;
+            this.$emit('clickCategory', id);
         }
     }
 
 }
 </script>
 <style>
-.ui-picker {
+.ui-picker li{
     display: inline-block;
+    margin: 5px;
+    border-radius: 3px;
+    cursor: pointer;
 }
 
 .selected {

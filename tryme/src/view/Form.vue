@@ -3,17 +3,17 @@
         <input placeholder="标题" v-model="todo.title"/>
         <br>
         <textarea v-model="todo.desc"></textarea>
-        <ui-category :datasource="categories" :value="todo.categoryId"></ui-category>
+        <ui-category :datasource="categories" @clickCategory="clickCategory"></ui-category>
         <!-- <add-category @click="startAddCategory">[+]</add-category> -->
         <!-- <edit-category @click="startEditCategory">[-]</edit-category> -->
         <div>
             预期完成时间：
-            <ui-calendar :value="endTimeDate" @select="selectDate(date)"></ui-calendar>
+            <ui-calendar :value="endTimeDate" @select="selectDate"></ui-calendar>
             <ui-timepicker :endTimeHour="endTimeHour"></ui-timepicker>
         </div>
 
         <div>
-            <button :click="submit">提交</button>
+            <button @click="submit">提交</button>
         </div>
     </div>
 </template>
@@ -34,51 +34,46 @@ export default {
         // 'add-category': AddCategory,
         // 'edit-category': EditCategory
     },
-    computed: {
-        todo() {
-            // 这能拿到响应么
-            if (this.id) {
-                return service.todo(this.id);
-            }
-
-            return {
+    data() {
+        return {
+            datasource: [],
+            todo: {
                 id: 0,
                 title: '',
                 desc: '',
                 endTime: new Date().getTime(),
                 categoryId: null,
                 done: false
-            }
-        },
-        endTimeDate() {
-            let endTime = new Date(this.todo.endTime);
-            return new Date(
-                endTime.getFullYear(),
-                endTime.getMonth(),
-                endTime.getDate()
-            )
-        },
-        endTimeHour() {
-            let endTime = new Date(this.todo.endTime);
-            return endTime.getHours();
+            },
+            endTimeDate: null,
+            endTimeHour: null,
+            categories: []
         }
     },
-    data() {
-        return {
-            datasource: []
-        }
+    props: ['id'],
+    created() {
+        // let id = this.$router.query.id;
+        // if (id) {
+        //     this.id = +id;
+        //     this.todo = service.todo(this.id);
+        // }
+
+        this.endTimeDate = new Date(this.todo.endTime),
+        this.endTimeHour = new Date(this.todo.endTime),
+
+        this.updateCategories();
+
     },
     methods: {
-        created() {
-            let id = this.$router.query.id;
-            if (id) {
-                this.id = +id;
-            }
-
-            this.updateCategories()
-        },
         submit() {
-            service.addTodo(this.todo);
+            let todo = this.todo;
+            if (todo.id) {
+                service.editTodo(todo);
+            }
+            else {
+                service.addTodo(todo);
+            }
+            this.$router.go(-1);
         },
         startAddCategory() {
 
@@ -92,6 +87,9 @@ export default {
         // 这个是不是可以用v-model替代？？？
         selectDate(date) {
             this.endTimeDate = date;
+        },
+        clickCategory(cateId) {
+            this.todo.categoryId = cateId;
         }
 
     }

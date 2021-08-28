@@ -25,21 +25,18 @@
 export default {
     data() {
         return {
+            viewMonth: '', 
+            viewYear: '',
             datas: [],
             currDate: this.value
         }
     },
     props: ['value'],
-    computed: {
-        viewYear() {
-            return this.currDate.getFullYear()
-        },
-        viewMonth() {
-            return this.currDate.getMonth()
-        }
-    },
     created() {
+        this.viewYear = this.currDate.getFullYear();
+        this.viewMonth = this.currDate.getMonth();
         this.updateDates();
+
     },
     methods: {
         prev(){

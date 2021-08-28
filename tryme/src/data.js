@@ -23,7 +23,7 @@ export default {
             "title": "de方法",
             "desc": "de",
             "endTime": 1457535600000,
-            "categoryId": 9,
+            "categoryId": 1,
             "addTime": 1457536266662,
             "done": true
         },

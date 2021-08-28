@@ -18,7 +18,7 @@ export default {
     props: ['value'],
     methods: {
         mainClick() {
-            this.isLayer = true;
+            this.isLayer = !this.isLayer;
         },
         select(dateValue) {
             this.dateValue = dateValue;
